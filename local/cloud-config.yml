@@ -1,0 +1,3 @@
+#cloud-config
+authorized-ssh-keys:
+  - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAOJw66KFgG5ypRTDb0tlSFpKPG3NNS3ZHsBeRj98zd3
