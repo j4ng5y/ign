@@ -1,0 +1,40 @@
+variant: fcos
+version: 1.4.0
+passwd:
+  users:
+    - name: jgregory
+      ssh_authorized_keys:
+        - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAOJw66KFgG5ypRTDb0tlSFpKPG3NNS3ZHsBeRj98zd3
+      home_dir: /home/jgregory
+      primary_group: jgregory
+      groups:
+        - docker
+        - wheel
+        - sudo
+      shell: /bin/bash
+storage:
+  files:
+    - path: /etc/sysctl.d/20-silence-audit.conf
+      contents:
+        inline: |
+          kernel.printk=4
+    - path: /etc/hostname
+      mode: 420
+      contents:
+        inline: |
+          fcos
+    - path: /etc/NetworkManager/system-connections/enp1s0.nmconnection
+      mode: 0600
+      overwrite: true
+      contents:
+        inline: |
+          [connection]
+          type=ethernet
+          id="Ethernet 1"
+          interface-name=enp0s3
+          
+          [ipv4]
+          method=manual
+          addresses=10.0.50.1/24
+          gateway=10.0.50.254
+          dns=8.8.8.8,8.8.4.4
